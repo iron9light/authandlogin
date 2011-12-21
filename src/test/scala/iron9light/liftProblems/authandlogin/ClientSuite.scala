@@ -13,9 +13,16 @@ import net.liftweb.common.Loggable
 
 @RunWith(classOf[JUnitRunner])
 class ClientSuite extends FunSuite with Loggable {
-  test("") {
+  test("try User.currentUser") {
     val http = new Http
     val url = :/("localhost", 8080) / "api" / "x" as_! ("aa", "bb")
+    val handler = url >- (x => logger info x)
+    http(handler)
+  }
+  
+  test("try AuthServer.user") {
+    val http = new Http
+    val url = :/("localhost", 8080) / "api2" / "x" as_! ("xx", "yy")
     val handler = url >- (x => logger info x)
     http(handler)
   }

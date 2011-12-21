@@ -39,11 +39,13 @@ class Boot extends  Loggable {
       val user = User.create
       logger info (id + " " + ps)
       User.logUserIn(user)
+      AuthServer.user(Some(user))
       logger info (User.currentUser)
       userRoles(AuthRole("normal") :: Nil)
       true
     }
   }
 
-  LiftRules.dispatch.append(AuthServer)
+//  LiftRules.dispatch.append(AuthServer)
+  LiftRules.statelessDispatchTable.append(AuthServer)
 }
